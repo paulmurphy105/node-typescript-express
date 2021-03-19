@@ -1,0 +1,1 @@
+Copied from https://www.toptal.com/express-js/nodejs-typescript-rest-api-pt-1
