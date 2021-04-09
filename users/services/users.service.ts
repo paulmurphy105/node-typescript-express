@@ -1,34 +1,19 @@
-import UsersDao from "../daos/users.dao";
-import { CRUD } from "../../common/interfaces/crud.interface";
-import { UserDto } from "../dto/user.dto";
+import { JsonPlaceHolderClient } from "../client/jsonplaceholder.client";
+import { DIContainer } from "../../inversify.config"
+import { UserInt } from '../../common/interfaces/user.interface'
+import User from '../models/user.model'
 
-class UsersService implements CRUD {
-  async create(resource: UserDto) {
-    return UsersDao.addUser(resource);
+class UsersService {
+  UserClient: JsonPlaceHolderClient = DIContainer.resolve<JsonPlaceHolderClient>(JsonPlaceHolderClient);
+
+  async get() {
+    const user = await this.UserClient.get();
+    return user.map((usr: UserInt ) => new User(usr));
   }
 
-  async deleteById(resourceId: string) {
-    return UsersDao.removeUserById(resourceId);
-  }
-
-  async list(limit: number, page: number) {
-    return UsersDao.getUsers();
-  }
-
-  async patchById(resource: UserDto) {
-    return UsersDao.patchUserById(resource);
-  }
-
-  async readById(resourceId: string) {
-    return UsersDao.getUserById(resourceId);
-  }
-
-  async updateById(resource: UserDto) {
-    return UsersDao.putUserById(resource);
-  }
-
-  async getUserByEmail(email: string) {
-    return UsersDao.getUserByEmail(email);
+  async getUserById(id: number) {
+    const user = await this.UserClient.getUserById(id);
+    return new User(user);
   }
 }
 
