@@ -8,7 +8,7 @@ class UsersMiddleware {
     next: express.NextFunction
   ) {
     const user = await userService.getUserById(parseInt(req.params.userId));
-    console.log('user', user)
+
     if (user) {
       next();
     } else {

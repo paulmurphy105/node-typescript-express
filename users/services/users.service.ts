@@ -8,11 +8,13 @@ class UsersService {
 
   async get() {
     const user = await this.UserClient.get();
+
     return user.map((usr: UserInt) => new User(usr));
   }
 
   async getUserById(id: number) {
     const user = await this.UserClient.getUserById(id);
+    
     return new User(user);
   }
 }

@@ -33,7 +33,6 @@ class User {
   }
 
   public get name() {
-    console.log('i was called')
     return this._name;
   }
   public set name(value) {
